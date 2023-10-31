@@ -36,6 +36,6 @@ module.exports = {
   corePlugins: {
     preflight: false,
   },
-  plugins: [require("tw-elements/dist/plugin.cjs")],
+  plugins: [],
 }
 
