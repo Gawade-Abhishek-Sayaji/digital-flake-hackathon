@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       
     <BrowserRouter>
-    {user?<SideNavBar/>:null}
+    {/* {user?<SideNavBar/>:null} */}
       <Routes>
         <Route element={<PrivateComponent/>}>
         <Route path="/home" element={<Home/>} />

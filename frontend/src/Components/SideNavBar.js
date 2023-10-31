@@ -49,11 +49,7 @@ export default function SideNavBar() {
           </div>
           
         </div>
-{/* Home Component */}
-        <div>
-          <div style={{position:"absolute", width:"341px", height:"179px", top:"361px", left:"875px"}}><img src={digitalflakelogo}/></div>
-          <div style={{position:"absolute", width:"468px", height:"41px", top:"549px", left:"811px", fontFamily:"Inter", fontStyle:"normal", fontWeight:"400", fontSize:"32px", lineHeight:"38.73px", color:"#040404"}}>Welcome to Digitalflake Admin</div>
-        </div>
+
         {/* Header */}
         <div style={{position:"absolute",width:"1728px",height:"118px", backgroundColor:"#662671", boxShadow:"0px 4px 5px 0px #0000001A"}}>
         <div style={{position:"absolute",width:"296px",height:"45.96px", top:"36px", left:"30px"}}><img src={TransLogo}></img></div>

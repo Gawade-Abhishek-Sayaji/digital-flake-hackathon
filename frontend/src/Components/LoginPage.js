@@ -1,13 +1,48 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import background from "../Assets/Login/background.png";
 import digitalflake from "../Assets/Login/digitalflakeloginlogo.png";
+import { useNavigate } from "react-router-dom";
+import SideNavBar from "./SideNavBar";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const submitForm = () => {
-    console.log("submit: ", email, password);
+
+  const navigate = useNavigate();
+  const submitForm = async() => {
+    let result= await fetch("http://localhost:5000/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+    result=await result.json()
+    console.log(result)
+    setEmail("");
+    setPassword("");
+    navigate("/home")
+    if(result.message){
+      alert(result.message)
+      navigate("/")
+    }else if(result._id && result.email){
+      localStorage.setItem("user",JSON.stringify(result))
+      console.log("about to redirect to Home Page")
+      navigate("/home")
+      console.log("redirected to Home Page")
+    }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      
+      navigate("/home");
+      
+    }
+  })
   return (
     <div
       style={{
