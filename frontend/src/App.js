@@ -10,6 +10,7 @@ import ForgotPasswordCallout from "./Components/ForgotPasswordCallout";
 import LogoutCallout from "./Components/LogoutCallout";
 import DeleteCallout from "./Components/DeleteCallout";
 import SideNavBar from "./Components/SideNavBar";
+import EditCategory from "./Components/EditCategory";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateComponent from './Components/PrivateComponent';
@@ -26,6 +27,7 @@ function App() {
         <Route path="/home" element={<Home/>} />
         <Route path="/category" element={<CategoryList/>}/>
         <Route path="/addCategory" element={<AddCategoryList/>}/>
+        <Route path="/editCategory" element={<EditCategory/>}/>
         <Route path="/products" element={<ProductList/>}/>
         <Route path="/addProduct" element={<AddProduct/>}/>
         <Route path="/forgotPassword" element={<ForgotPasswordCallout/>}/>

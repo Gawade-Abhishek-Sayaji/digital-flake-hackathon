@@ -13,8 +13,10 @@ export default function AddProduct() {
       
       <SideNavBar/>
 {/* Category List Component */}
-        <div>
-          Add Product 
+<div>
+        <div style={{position:"absolute",width:"1230px",height:"962px", top:"132px", left:"464px", borderRadius:"10px", backgroundColor:"black",color:"white"}}>
+          Add Product
+        </div>
         </div>
         
     </div>
