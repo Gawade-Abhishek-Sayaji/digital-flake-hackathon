@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 require("./db/config");
 const User = require("./db/User");
+const Category=require("./db/Category")
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -24,6 +25,27 @@ app.post("/", async (req, res) => {
   } else {
     res.send({ message: "All fields are required" });
   }
+});
+
+app.post("/add-category", async (req, res) => {
+  if(req.body.name && req.body.description){
+    let category = new Category(req.body);
+    let result = await category.save();
+    res.send(result);
+  }else{
+    res.send({message:"All fields are required"})
+  }
+})
+
+app.get("/category-list", async (req, res) => {
+  
+  let category = await Category.find();
+  res.send(category);
+})
+
+app.delete("/delete-category/:id",async (req, res) => {
+  let result = await Category.deleteOne({ _id: req.params.id });
+  res.send(result);
 });
 
 app.listen(5000);
