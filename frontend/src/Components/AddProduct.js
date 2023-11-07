@@ -15,6 +15,7 @@ export default function AddProduct() {
   const navigate = useNavigate();
   const trial = ["electronics", "mobile", "Sports"];
 
+  // Function to Reset the Product and navigate to Product page
   const cancelProduct = () => {
     setCategory("");
     setName("");
@@ -25,37 +26,38 @@ export default function AddProduct() {
     navigate("/products");
   };
 
+  // Function to save product by hitting API and storng data into DB and navigating to Product page
   const saveProduct = async () => {
-    if(name && packSize && mrp && image && category){
+    if (name && packSize && mrp && image && category) {
       let result = await fetch("http://localhost:5000/add-product", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
-      },
-      body: JSON.stringify({
-        category,
-        name,
-        packSize,
-        mrp,
-        image,
-        status,
-      })
-    });
-    result = await result.json();
-    setCategory("");
-    setName("");
-    setPackSize("");
-    setMrp("");
-    setImage(null);
-    setStatus(true);
-    if (result.message) {
-      alert(result.message);
-      navigate("/addProduct");
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
+        },
+        body: JSON.stringify({
+          category,
+          name,
+          packSize,
+          mrp,
+          image,
+          status,
+        }),
+      });
+      result = await result.json();
+      setCategory("");
+      setName("");
+      setPackSize("");
+      setMrp("");
+      setImage(null);
+      setStatus(true);
+      if (result.message) {
+        alert(result.message);
+        navigate("/addProduct");
+      } else {
+        navigate("/products");
+      }
     } else {
-      navigate("/products");
-    }
-    }else{
       alert("Please fill all the fields");
     }
   };
@@ -64,24 +66,23 @@ export default function AddProduct() {
     getCategory();
   }, []);
 
+  // Function to get category list to be included in Select tag Options
   const getCategory = async () => {
-   
     let result = await fetch("http://localhost:5000/category-list", {
       method: "get",
       headers: {
         "content-type": "application/json",
-        authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
     });
-   
+
     result = await result.json();
-    console.log(result)
+    
     setCategoryList(
       result.map((category) => {
         return category.name;
       })
     );
-   
   };
 
   return (
@@ -394,16 +395,16 @@ export default function AddProduct() {
                 >
                   <div className="absolute top-[-8px] left-[0px] w-[380px] h-[64px]">
                     <div className="absolute top-[8px] left-[0px] rounded-8xs bg-white box-border w-[380px] h-[64px] overflow-hidden border-[1px] border-solid border-darkgray">
-                      <div>
-                     
-                      </div>
+                      <div></div>
                       <div>
                         <label>
                           <label
                             for="file-upload"
                             class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-                            <span ><img src={upload} alt="upload" /></span>
+                            <span>
+                              <img src={upload} alt="upload" />
+                            </span>
                             <input
                               id="file-upload"
                               name="file-upload"
@@ -420,7 +421,6 @@ export default function AddProduct() {
                               }}
                             />
                           </label>
-                          
                         </label>
                       </div>
                     </div>

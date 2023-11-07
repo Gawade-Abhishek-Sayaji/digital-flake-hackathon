@@ -11,36 +11,35 @@ export default function CategoryList() {
   const [categoryList, setCategoryList] = useState([]);
 
   useEffect(() => {
-   
     getCategoryList();
-  },[])
+  }, []);
 
-  const deleteCategory=async(id)=>{
+  // Function to delete the selected category by hitting API and deleting data from DB
+  const deleteCategory = async (id) => {
     let result = await fetch(`http://localhost:5000/delete-category/${id}`, {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
-        authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
     });
     result = await result.json();
     getCategoryList();
-  }
- 
+  };
+
+  // Function to get category list to be populated in table
   const getCategoryList = async () => {
     let result = await fetch("http://localhost:5000/category-list", {
       method: "get",
       headers: {
         "content-type": "application/json",
-        authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
+        authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
       },
     });
     result = await result.json();
-   
-    setCategoryList(result);
-    
-  }
 
+    setCategoryList(result);
+  };
 
   return (
     <div
@@ -132,7 +131,6 @@ export default function CategoryList() {
             </div>
             <button
               type="button"
-              
               style={{
                 position: "absolute",
                 width: "110px",
@@ -149,7 +147,12 @@ export default function CategoryList() {
                 color: "#FFFFFF",
               }}
             >
-              <Link to="/addCategory" style={{color:"white", textDecoration:"none" }}>Add New</Link>
+              <Link
+                to="/addCategory"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Add New
+              </Link>
             </button>
           </div>
           {/* Table */}
@@ -165,29 +168,61 @@ export default function CategoryList() {
               <div className="inline-block min-w-full align-middle">
                 <div className="overflow-hidden ">
                   <table className="min-w-full divide-y divide-gray-200 table-fixed dark:divide-gray-700">
-                    <thead style={{backgroundColor: "#FFF8B7"}}>
+                    <thead style={{ backgroundColor: "#FFF8B7" }}>
                       <tr>
-                      <th
+                        <th
                           scope="col"
-                          style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"500",fontSize:"20px",lineHeight:"30px",color:"#000000", alignContent:"center"}}
+                          style={{
+                            fontFamily: "Poppins",
+                            fontStyle: "normal",
+                            fontWeight: "500",
+                            fontSize: "20px",
+                            lineHeight: "30px",
+                            color: "#000000",
+                            alignContent: "center",
+                          }}
                         >
                           ID
                         </th>
                         <th
                           scope="col"
-                          style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"500",fontSize:"20px",lineHeight:"30px",color:"#000000", alignContent:"center"}}
+                          style={{
+                            fontFamily: "Poppins",
+                            fontStyle: "normal",
+                            fontWeight: "500",
+                            fontSize: "20px",
+                            lineHeight: "30px",
+                            color: "#000000",
+                            alignContent: "center",
+                          }}
                         >
                           Name
                         </th>
                         <th
                           scope="col"
-                          style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"500",fontSize:"20px",lineHeight:"30px",color:"#000000", alignContent:"center"}}
+                          style={{
+                            fontFamily: "Poppins",
+                            fontStyle: "normal",
+                            fontWeight: "500",
+                            fontSize: "20px",
+                            lineHeight: "30px",
+                            color: "#000000",
+                            alignContent: "center",
+                          }}
                         >
                           Description
                         </th>
                         <th
                           scope="col"
-                          style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"500",fontSize:"20px",lineHeight:"30px",color:"#000000", alignContent:"center"}}
+                          style={{
+                            fontFamily: "Poppins",
+                            fontStyle: "normal",
+                            fontWeight: "500",
+                            fontSize: "20px",
+                            lineHeight: "30px",
+                            color: "#000000",
+                            alignContent: "center",
+                          }}
                         >
                           Status
                         </th>
@@ -198,53 +233,104 @@ export default function CategoryList() {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                       {categoryList.map((category) => (
-                        <tr key={category._id} style={{backgroundColor: "#F2F2F2"}}>
-                        <td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#000000"}} >
+                        <tr
+                          key={category._id}
+                          style={{ backgroundColor: "#F2F2F2" }}
+                        >
+                          <td
+                            style={{
+                              fontFamily: "Poppins",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              fontSize: "16px",
+                              lineHeight: "24px",
+                              color: "#000000",
+                            }}
+                          >
                             {category._id}
                           </td>
-                          <td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#000000"}}>
+                          <td
+                            style={{
+                              fontFamily: "Poppins",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              fontSize: "16px",
+                              lineHeight: "24px",
+                              color: "#000000",
+                            }}
+                          >
                             {category.name}
                           </td>
-                          <td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#000000"}}>
+                          <td
+                            style={{
+                              fontFamily: "Poppins",
+                              fontStyle: "normal",
+                              fontWeight: "400",
+                              fontSize: "16px",
+                              lineHeight: "24px",
+                              color: "#000000",
+                            }}
+                          >
                             {category.description}
                           </td>
-                          {category.status?(<td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#2DA323"}}>
-                            Active
-                          </td>):(<td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#B13129"}}>
-                            Inactive
-                          </td>)}
+                          {category.status ? (
+                            <td
+                              style={{
+                                fontFamily: "Poppins",
+                                fontStyle: "normal",
+                                fontWeight: "400",
+                                fontSize: "16px",
+                                lineHeight: "24px",
+                                color: "#2DA323",
+                              }}
+                            >
+                              Active
+                            </td>
+                          ) : (
+                            <td
+                              style={{
+                                fontFamily: "Poppins",
+                                fontStyle: "normal",
+                                fontWeight: "400",
+                                fontSize: "16px",
+                                lineHeight: "24px",
+                                color: "#B13129",
+                              }}
+                            >
+                              Inactive
+                            </td>
+                          )}
                           <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                             <Link
-                               to="/editCategory"
-                              style={{display:"inline-flex"}}
+                              to="/editCategory"
+                              style={{ display: "inline-flex" }}
                             >
-                             <img src={edit} />
+                              <img src={edit} />
                             </Link>
                             <button
-                            type="button"
+                              type="button"
                               onClick={() => {
                                 Swal.fire({
-                                  title: 'Delete',
-            text: "Are you sure you want to delete ?",
+                                  title: "Delete",
+                                  text: "Are you sure you want to delete ?",
                                   icon: "warning",
                                   showCancelButton: true,
                                   cancelButtonColor: "#676767",
                                   confirmButtonColor: "#662671",
                                   confirmButtonText: "Confirm",
                                 }).then((result) => {
-                                  if(result.isConfirmed){
+                                  if (result.isConfirmed) {
                                     deleteCategory(category._id);
                                   }
                                 });
                               }}
-                              style={{display:"inline-flex"}}
+                              style={{ display: "inline-flex" }}
                             >
-                             <img src={deleteIcon} />
+                              <img src={deleteIcon} />
                             </button>
                           </td>
                         </tr>
                       ))}
-                      
                     </tbody>
                   </table>
                 </div>

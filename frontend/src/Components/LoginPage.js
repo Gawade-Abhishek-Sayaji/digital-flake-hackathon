@@ -8,10 +8,11 @@ import Swal from "sweetalert2";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
-  const submitForm = async() => {
-    let result= await fetch("http://localhost:5000/", {
+
+  // Function to LogIn the user by hitting an API and checking the credentials in Backend
+  const submitForm = async () => {
+    let result = await fetch("http://localhost:5000/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,31 +21,27 @@ export default function LoginPage() {
         email,
         password,
       }),
-    })
-    result=await result.json()
-    console.log(result)
+    });
+    result = await result.json();
+
     setEmail("");
     setPassword("");
-    navigate("/home")
-    if(result.message){
-      alert(result.message)
-      navigate("/")
-    }else if(result.result && result.token){
-      localStorage.setItem("user",JSON.stringify(result.result))
-      localStorage.setItem("token",JSON.stringify(result.token))
-     
-      navigate("/home")
-     
+    navigate("/home");
+    if (result.message) {
+      alert(result.message);
+      navigate("/");
+    } else if (result.result && result.token) {
+      localStorage.setItem("user", JSON.stringify(result.result));
+      localStorage.setItem("token", JSON.stringify(result.token));
+      navigate("/home");
     }
   };
 
   useEffect(() => {
     if (localStorage.getItem("user")) {
-      
       navigate("/home");
-      
     }
-  })
+  });
   return (
     <div
       style={{
@@ -54,11 +51,14 @@ export default function LoginPage() {
         left: "-2225px",
       }}
     >
+      {/* Background Image */}
       <img
         src={background}
         style={{ width: "1807px", height: "1203px", top: "-59px" }}
         alt=""
       />
+
+      {/* Login Form */}
       <form>
         <div
           style={{
@@ -169,42 +169,46 @@ export default function LoginPage() {
             </div>
           </div>
 
+          {/* Forgot Password Callout  */}
           <div
-           style={{
-            position: "absolute",
-            width: "212px",
-            height: "36px",
-            top: "635px",
-            left: "506px",
-            fontFamily: "Poppins",
-            fontStyle: "normal",
-            fontWeight: "400",
-            fontSize: "24px",
-            lineHeight: "36px",
-            color: "#A08CB1",
-          }}
-          >
-            <Link 
             style={{
-              textDecoration: "none",
-              color: "inherit",
+              position: "absolute",
+              width: "212px",
+              height: "36px",
+              top: "635px",
+              left: "506px",
+              fontFamily: "Poppins",
+              fontStyle: "normal",
+              fontWeight: "400",
+              fontSize: "24px",
+              lineHeight: "36px",
+              color: "#A08CB1",
             }}
-            onClick={()=>{
+          >
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              onClick={() => {
                 Swal.fire({
                   title: "Did you forget your password?",
-                  text:"Enter your email address and we'll send you a link to restore password",
-  input: "email",
-  inputLabel: "Email Address",
-  inputPlaceholder: "Enter your Email",
-  inputAttributes: {
-    maxlength: "80",
-    autocapitalize: "off",
-    autocorrect: "off"
-  },
-  confirmButtonColor: "#662671",
-                                  confirmButtonText: "Request reset link",
-                })
-            }} >Forgot Password?</Link>
+                  text: "Enter your email address and we'll send you a link to restore password",
+                  input: "email",
+                  inputLabel: "Email Address",
+                  inputPlaceholder: "Enter your Email",
+                  inputAttributes: {
+                    maxlength: "80",
+                    autocapitalize: "off",
+                    autocorrect: "off",
+                  },
+                  confirmButtonColor: "#662671",
+                  confirmButtonText: "Request reset link",
+                });
+              }}
+            >
+              Forgot Password?
+            </Link>
           </div>
 
           <button

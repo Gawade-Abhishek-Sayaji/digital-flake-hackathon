@@ -3,13 +3,13 @@ import SideNavBar from "./SideNavBar";
 import back from "../Assets/Category/back.png";
 import { Link, useNavigate } from "react-router-dom";
 
-
 export default function AddCategoryList() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState(true);
   const navigate = useNavigate();
 
+  // Function to Reset the category and navigate to category page
   const cancelCategory = () => {
     setName("");
     setDescription("");
@@ -17,13 +17,14 @@ export default function AddCategoryList() {
     navigate("/category");
   };
 
-  const saveCategory = async() => {
-    if(name && description){
+  // Function to save category by hitting API and storng data into DB and navigating to category page
+  const saveCategory = async () => {
+    if (name && description) {
       let result = await fetch("http://localhost:5000/add-category", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
+          authorization: `bearer ${JSON.parse(localStorage.getItem("token"))}`,
         },
         body: JSON.stringify({
           name,
@@ -38,11 +39,10 @@ export default function AddCategoryList() {
       } else {
         navigate("/category");
       }
-    }else{
+    } else {
       alert("Please fill all the fields");
     }
-    
-  }
+  };
   return (
     <div>
       <div
@@ -54,7 +54,7 @@ export default function AddCategoryList() {
         }}
       >
         <SideNavBar />
-        {/* Category List Component */}
+        {/* Add Category List Component */}
         <div>
           <div
             style={{
@@ -230,19 +230,18 @@ export default function AddCategoryList() {
                 >
                   <div className="absolute top-[-8px] left-[0px] w-[380px] h-[64px]">
                     <div className="absolute top-[8px] left-[0px] rounded-8xs bg-white box-border w-[380px] h-[64px] overflow-hidden border-[1px] border-solid border-darkgray">
-                    <select  
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                    style={{
-                    width: "380px",
-                    height: "64px",
-                    border: "1px solid #686868",
-                    
-                    }} >
-              <option value={true}>Active</option>
-              <option value={false}>Inactive</option>
-              
-            </select>
+                      <select
+                        value={status}
+                        onChange={(e) => setStatus(e.target.value)}
+                        style={{
+                          width: "380px",
+                          height: "64px",
+                          border: "1px solid #686868",
+                        }}
+                      >
+                        <option value={true}>Active</option>
+                        <option value={false}>Inactive</option>
+                      </select>
                     </div>
                     <div
                       className="absolute top-[0px] left-[12px] bg-white flex flex-row items-center justify-center py-0 px-1 text-8xl text-dimgray-200 font-inter"
@@ -285,13 +284,11 @@ export default function AddCategoryList() {
                     left: "999px",
                     borderRadius: "100px",
                     backgroundColor: "#662671",
-                    
                   }}
                 >
                   <button
                     type="button"
                     onClick={saveCategory}
-                    
                     style={{
                       position: "absolute",
                       width: "66px",
@@ -309,7 +306,7 @@ export default function AddCategoryList() {
                       color: "#FFFFFF",
                     }}
                   >
-                   Save
+                    Save
                   </button>
                 </div>
                 <div
