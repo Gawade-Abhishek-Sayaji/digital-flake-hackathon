@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import background from "../Assets/Login/background.png";
 import digitalflake from "../Assets/Login/digitalflakeloginlogo.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SideNavBar from "./SideNavBar";
+import Swal from "sweetalert2";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -169,21 +170,41 @@ export default function LoginPage() {
           </div>
 
           <div
-            style={{
-              position: "absolute",
-              width: "212px",
-              height: "36px",
-              top: "635px",
-              left: "506px",
-              fontFamily: "Poppins",
-              fontStyle: "normal",
-              fontWeight: "400",
-              fontSize: "24px",
-              lineHeight: "36px",
-              color: "#A08CB1",
-            }}
+           style={{
+            position: "absolute",
+            width: "212px",
+            height: "36px",
+            top: "635px",
+            left: "506px",
+            fontFamily: "Poppins",
+            fontStyle: "normal",
+            fontWeight: "400",
+            fontSize: "24px",
+            lineHeight: "36px",
+            color: "#A08CB1",
+          }}
           >
-            Forgot Password?
+            <Link 
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+            }}
+            onClick={()=>{
+                Swal.fire({
+                  title: "Did you forget your password?",
+                  text:"Enter your email address and we'll send you a link to restore password",
+  input: "email",
+  inputLabel: "Email Address",
+  inputPlaceholder: "Enter your Email",
+  inputAttributes: {
+    maxlength: "80",
+    autocapitalize: "off",
+    autocorrect: "off"
+  },
+  confirmButtonColor: "#662671",
+                                  confirmButtonText: "Request reset link",
+                })
+            }} >Forgot Password?</Link>
           </div>
 
           <button
