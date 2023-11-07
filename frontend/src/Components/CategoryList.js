@@ -20,6 +20,7 @@ export default function CategoryList() {
       method: "DELETE",
       headers: {
         "content-type": "application/json",
+        authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
       },
     });
     result = await result.json();
@@ -31,6 +32,7 @@ export default function CategoryList() {
       method: "get",
       headers: {
         "content-type": "application/json",
+        authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
       },
     });
     result = await result.json();
@@ -39,19 +41,7 @@ export default function CategoryList() {
     
   }
 
-  // const showDeleteAlert = (id) => {
-  //   debugger
-  //   console.log("delete id", id);
-  //   // Swal.fire({
-  //   //   title: "Are you sure?",
-  //   //   text: "You won't be able to revert this!",
-  //   //   icon: "warning",
-  //   //   showCancelButton: true,
-  //   //   confirmButtonColor: "#3085d6",
-  //   //   cancelButtonColor: "#d33",
-  //   //   confirmButtonText: "Yes, delete it!",
-  //   // })
-  // }
+
   return (
     <div
       style={{
@@ -218,9 +208,11 @@ export default function CategoryList() {
                           <td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#000000"}}>
                             {category.description}
                           </td>
-                          <td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#000000"}}>
-                            {category.status?"Active":"Inactive"}
-                          </td>
+                          {category.status?(<td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#2DA323"}}>
+                            Active
+                          </td>):(<td style={{fontFamily:"Poppins", fontStyle:"normal",fontWeight:"400",fontSize:"16px",lineHeight:"24px",color:"#B13129"}}>
+                            Inactive
+                          </td>)}
                           <td className="py-4 px-6 text-sm font-medium text-right whitespace-nowrap">
                             <Link
                                to="/editCategory"
@@ -232,22 +224,13 @@ export default function CategoryList() {
                             type="button"
                               onClick={() => {
                                 Swal.fire({
-                                  title: "Are you sure?",
-                                  text: "You won't be able to revert this!",
+                                  title: 'Delete',
+            text: "Are you sure you want to delete ?",
                                   icon: "warning",
                                   showCancelButton: true,
-                                  confirmButtonColor: "#3085d6",
-                                  cancelButtonColor: "#d33",
-                                  confirmButtonText: "Yes, delete it!",
-                                  
-                                  // confirmButtonClick:()=>{
-                                  //   console.log("delete: ", category._id);
-                                  //   Swal.fire(
-                                  //     "Deleted!",
-                                  //     "Your file has been deleted.", 
-                                  //     "success"
-                                  //   )
-                                  // }
+                                  cancelButtonColor: "#676767",
+                                  confirmButtonColor: "#662671",
+                                  confirmButtonText: "Confirm",
                                 }).then((result) => {
                                   if(result.isConfirmed){
                                     deleteCategory(category._id);

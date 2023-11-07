@@ -18,26 +18,28 @@ export default function AddCategoryList() {
   };
 
   const saveCategory = async() => {
-    let result= await fetch("http://localhost:5000/add-category", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        description,
-        status,
-      })
-    })
-    result=await result.json()
-    setName("")
-    setDescription("")
-    setStatus(true)
-    if(result.message){
-      alert(result.message)
-      navigate("/addCategory")
+    if(name && description){
+      let result = await fetch("http://localhost:5000/add-category", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization:`bearer ${JSON.parse(localStorage.getItem("token"))}`
+        },
+        body: JSON.stringify({
+          name,
+          description,
+          status,
+        }),
+      });
+      result = await result.json();
+      if (result.message) {
+        alert(result.message);
+        navigate("/category");
+      } else {
+        navigate("/category");
+      }
     }else{
-      navigate("/category")
+      alert("Please fill all the fields");
     }
     
   }
@@ -289,6 +291,7 @@ export default function AddCategoryList() {
                   <button
                     type="button"
                     onClick={saveCategory}
+                    
                     style={{
                       position: "absolute",
                       width: "66px",

@@ -7,6 +7,7 @@ import products from "../Assets/Home/products.png"
 import arrow from "../Assets/Home/Arrow.png"
 import digitalflakelogo from "../Assets/Login/digitalflakeloginlogo.png"
 import { Link } from 'react-router-dom'
+import Swal from 'sweetalert2'
 
 
 export default function SideNavBar() {
@@ -54,8 +55,23 @@ export default function SideNavBar() {
         <div style={{position:"absolute",width:"1728px",height:"118px", backgroundColor:"#662671", boxShadow:"0px 4px 5px 0px #0000001A"}}>
         <div style={{position:"absolute",width:"296px",height:"45.96px", top:"36px", left:"30px"}}><img src={TransLogo}></img></div>
         {/* Logout (Need to make a function on Button Click and redirecting to Login Page)*/}
-        <div style={{position:"absolute",width:"50px",height:"50px", top:"31px", left:"1621px"}}><img src={LogoutLogo}></img></div>
-        
+        <div ><button type="button" style={{position:"absolute",width:"50px",height:"50px", top:"31px", left:"1621px", backgroundColor:"#662671", }} onClick={()=>{
+          Swal.fire({
+            title: 'Log Out',
+            text: "Are you sure you want to log out ?",
+            icon: 'warning',
+            showCancelButton: true,
+                                  cancelButtonColor: "#676767",
+                                  confirmButtonColor: "#662671",
+                                  confirmButtonText: "Confirm",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              localStorage.removeItem("user")
+              window.location.reload()
+            }
+          })
+        }}><img src={LogoutLogo}></img></button></div>
+
       </div>
     </div>
     </div>

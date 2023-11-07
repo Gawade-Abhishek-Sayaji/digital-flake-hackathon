@@ -6,9 +6,7 @@ import CategoryList from "./Components/CategoryList";
 import AddCategoryList from "./Components/AddCategoryList";
 import ProductList from "./Components/ProductList";
 import AddProduct from "./Components/AddProduct";
-import ForgotPasswordCallout from "./Components/ForgotPasswordCallout";
-import LogoutCallout from "./Components/LogoutCallout";
-import DeleteCallout from "./Components/DeleteCallout";
+
 import SideNavBar from "./Components/SideNavBar";
 import EditCategory from "./Components/EditCategory";
 
@@ -30,9 +28,7 @@ function App() {
         <Route path="/editCategory" element={<EditCategory/>}/>
         <Route path="/products" element={<ProductList/>}/>
         <Route path="/addProduct" element={<AddProduct/>}/>
-        <Route path="/forgotPassword" element={<ForgotPasswordCallout/>}/>
-        <Route path="/logout" element={<LogoutCallout/>}/>
-        <Route path="/delete" element={<DeleteCallout/>}/>
+        
         </Route>
         <Route path="/" element={<LoginPage/>} />
       </Routes>

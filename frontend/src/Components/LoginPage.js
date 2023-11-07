@@ -28,11 +28,12 @@ export default function LoginPage() {
     if(result.message){
       alert(result.message)
       navigate("/")
-    }else if(result._id && result.email){
-      localStorage.setItem("user",JSON.stringify(result))
-      console.log("about to redirect to Home Page")
+    }else if(result.result && result.token){
+      localStorage.setItem("user",JSON.stringify(result.result))
+      localStorage.setItem("token",JSON.stringify(result.token))
+     
       navigate("/home")
-      console.log("redirected to Home Page")
+     
     }
   };
 
